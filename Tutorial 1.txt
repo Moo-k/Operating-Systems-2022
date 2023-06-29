@@ -1,0 +1,82 @@
+Tutorial 1 - answers
+Q1) What is the best Operating System in the world? :)
+A. Linux
+B. Windows
+C. macOS
+D. Android
+E. There is no single best Operating System
+
+Answer: Well, of course it is ...
+
+ 
+
+Q2) A busy web server has many clients accessing it. The server is multi-threaded, so each request is serviced in a separate thread. Considering the servicing threads only, what type(s) of parallelism is this?
+A. A combination of task and data parallelism
+B. Task parallelism
+C. Many-to-many parallelism
+D. Data parallelism
+E. Many-to-one parallelism
+
+Answer: Data parallelism (if considering the servicing threads only). Such a server will typically have the “listening” task and “servicing tasks” for each request. Each service thread is performing the same task, but on different data. However, if we consider the listening thread and a servicing thread in parallel that would be task parallelism. "Many-to-many" and "Many-to-one" is something I just made up so that we have 5 answers.
+
+ 
+
+Q3) What resources are used when a thread is created? How do they differ from those used when a process is created?
+A. Thread creation typically uses more resources than process creation
+B. Thread creation typically allocates a new process control block, containing a memory map, environment variables, CPU registers and more.
+C. Creating a thread involves allocating several program counters, several register sets, etc.
+D. Creating a thread involves allocating a small data structure to hold a register set, stack, and priority.
+E. Creating a new thread only requires the allocation of a program counter.
+
+Answer: Creating a thread involves allocating a small data structure to hold a register set, stack, and priority.
+
+ 
+
+Q4) A CPU-scheduling algorithm determines an order for the execution of its scheduled processes. Given n processes to be scheduled on one processor, how many different schedules are possible? Give a formula in terms of n.
+A. n^2
+B. (n - 1)!
+C. n!
+D. n! / (n - 1)!
+E. n
+
+Answer: n! (n factorial = n × n – 1 × n – 2 × ... × 2 × 1). When choosing the first process, there are n possibilities. When choosing the second process, there are (n - 1) possibilities, because we cannot choose the first process again. And so on.
+
+ 
+
+Q5) What is the difference between preemptive and nonpreemptive scheduling?
+A. Preemptive scheduling allows a process to be interrupted in the midst of its execution, taking the CPU away and allocating it to another process. Nonpreemptive scheduling ensures that a process relinquishes control of the CPU only when it finishes with its current CPU burst.
+B. Preemptive scheduling allows a process to be interrupted in the midst of its execution, taking the CPU away and allocating it to another process. Nonpreemptive scheduling ensures that a process relinquishes control of the CPU only when it terminates.
+C. Preemptive scheduling allows a process to be interrupted before execution has started, taking the CPU away and allocating it to another core. Nonpreemptive scheduling ensures that a process relinquishes control of the CPU only when when it terminates.
+D. Preemptive scheduling allows a process to be interrupted before execution has started, taking the CPU away and allocating it to another process. Nonpreemptive scheduling ensures that a process relinquishes control of the CPU only when it finishes with its current CPU burst.
+E. Preemptive scheduling allows a process to be interrupted in the midst of its execution, taking the CPU away and allocating it to another core. Nonpreemptive scheduling ensures that a process relinquishes control of the CPU only when it finishes with its current CPU burst.
+
+Answer: Preemptive scheduling allows a process to be interrupted in the midst of its execution, taking the CPU away and allocating it to another process. Nonpreemptive scheduling ensures that a process relinquishes control of the CPU only when it finishes with its current CPU burst. Note that finishing CPU burst might mean either terminating or going into wait queue (switching to I/O burst).
+
+ 
+
+Q6) Suppose that the following processes arrive for execution at the times indicated. Each process will run for the amount of time listed. Consider FCFS, SJF, SRTF and RR algorithms. Out of these, use a nonpreemptive algorithm in which decisions are based on the information you have at the time the decision must be made. What would be the average turnaround time using such an algorithm?
+
+Process	Arrival time	burst time
+P1	0.0	8
+P2	0.4	4
+P3	1.0	1
+
+A. 6.8
+B. 10.53
+C. 11
+D. 8.53
+E. 4.33
+
+Answer: 10.53.
+
+You should use FCFS. Note that SJF cannot be used here because we require an "algorithm in which decisions are based on the information you have at the time the decision must be made". For SJF, burst time will not be known in advance (e.g., if you open a Word document, how can the OS know how long are you going to use it for?). We provide burst times in lectures to explain the algorithm, but in practice burst times are not known and need to be estimated.
+
+0 to 8 P1, 8 to 12 P2 and 12 to 13 P3.
+
+For P1 turnaround = 8 - 0 = 8
+
+For P2: 12 - 0.4 = 11.6
+
+For P3 = 13 - 1 = 12
+
+average = 10.53

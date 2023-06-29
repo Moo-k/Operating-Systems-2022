@@ -1,0 +1,49 @@
+Tutorial 2 - answers
+Q1. (i) What is the meaning of the term busy waiting? (ii) How can the busy waiting be avoided?
+
+A. (i) A task is kept in a waiting queue until an event occurs. (ii) Keep the task constantly checking whether the event has occurred.
+B. (i) Processes wait because the CPU is busy executing other tasks. (ii) Temporarily put the waiting process to sleep and awaken it when the CPU is available.
+C. (i) A process is waiting for a condition to be satisfied in a loop but without occupying the CPU. (ii) Put the task in a waiting queue and run it whenever the condition is satisfied.
+D. (i) A process is waiting for the user to press a key on the keyboard. b) Restart the process when the condition is satisfied to avoid busy waiting.
+E. (i) A process is waiting for a condition to be satisfied in a loop without relinquishing the CPU. b) Temporarily put the waiting process to sleep and awaken it when the appropriate program state is reached.
+
+Solution: Option E is correct. This question is the combination of two sub-questions. Busy waiting --- a process is waiting for a condition to be satisfied in a tight loop without relinquishing the CPU. One typical way to avoid busy waiting is temporarily putting the waiting process to sleep and awakens it when the appropriate program state is reached. Generally, busy waiting should be avoided on uniprocessor machines, but it could sometimes be used on multiprocessor machines. However, even on multiprocessor machines busy-waiting is best used for very short waits and limited to operating system code.
+
+ 
+
+Q2. In which situation data consistency is NOT a concern?
+
+A. Two processes access shared variables a and b. Process P1 reads values from a and b, and process P2 writes values to b only.
+B. Two processes access shared variables a and b. Process P1 reads values from a and b, and process P2 reads values from b only.
+C. Two processes try to call an add() function to add 100 to a shared variable x, if and only if the variable x == 1.
+D. A husband and a wife accessing the same bank account from different devices.
+E. Students write their answers to a shared document
+
+Solution: Option B is correct. There is a potential consistency issue each time there is a shared resource. However, if the shared resource is only used for reading, maintaining consistency is not a problem.
+
+ 
+
+Q3. We have the following algorithmic solution for the critical section problem. Which one of the following statements is correct?
+
+P_i
+while (true) {
+  while (lock) { };   (1)
+  lock = true;        (2)
+  critical section    (3)
+  lock = false;       (4)
+} 
+A. Using this solution, two processes will always end up in the critical section at the same time.
+B. Using this solution, two processes will never end up in the critical section at the same time.
+C. Using this solution, if two processes arrive in the order of Pa then Pb, Pa would always access the critical section earlier than Pb.
+D. Using the solution, the CPU is utilized in the most efficient way
+E. There is no race condition by using this solution if the lock is an atomic variable.
+
+Solution: Option E is correct.
+
+A. not necessarily, they might get lucky and this won't always happen.
+
+B. Might happen. Both processes might check lock while it is still false in line 1, and progress to lines 2 and 3.
+
+C. Not necessarily, process Pb can progress to lines 1, 2 ,3, ... faster than Pa
+
+D. This solution involves busy waiting in which CPU cycles are wasted.

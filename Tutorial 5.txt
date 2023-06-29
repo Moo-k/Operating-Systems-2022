@@ -1,0 +1,72 @@
+Tutorial 5 - answer
+Q1. Consider implementing a device interface (i.e., handling communication between CPU and a device) in a device controller rather than in the OS kernel. Which of the following statements in INCORRECT?
+
+A. Performance can be improved by hard-coded algorithms and utilizing dedicated hardware
+B. Device controller can introduce additional data buffering
+C. The kernel is simplified by moving algorithms out of it
+D. Improving algorithms requires a hardware update rather than just a device driver update
+E. Bugs are less likely to cause an OS crash, and bugs are easier to fix
+
+Answer: E
+Option E is incorrect because the bugs are harder to fix. In order to fix a bug, a new firmware version or new hardware is needed
+
+ 
+
+Q2. Which statement about direct memory access (DMA) is CORRECT?
+
+A. The DMA controller operates the memory bus by placing addresses on the bus to perform transfers with the help of the main CPU
+B. To initiate a DMA transfer, the host reads a DMA command block from the memory
+C. DMA increases system concurrency by allowing executing instructions in parallel for a larger number of processes
+D. In order to use DMA, hardware design becomes more complicated because the system must allow the DMA controller to be a bus master
+E. All the above statements are correct
+
+Answer: D
+For option A, the DMA controller proceeds to operate the memory bus directly, placing addresses on the bus to perform transfers without the help of the main CPU. For option B, the host writes a DMA command block into memory to initiate a DMA transfer. This block is read by the DMA controller. For option C, DMA is not a CPU core and does not directly execute process' instructions
+
+
+Q3. Consider adding a new block at the beginning of a file currently consisting of 100 blocks. Assume that the content of the new block and the file-control block are already in memory. Calculate how many disk I/O operations are required for contiguous and linked allocation strategies. In the contiguous-allocation case, assume that there is no room to grow at the beginning but there is room to grow at the end. Assume that reading or writing a block takes one I/O operation. Don't include writing of the file-control block
+
+A. contiguous = 1, linked = 101
+B. contiguous = 101, linked = 1
+C. contiguous = 201, linked = 100
+D. contiguous = 201, linked = 1
+E. contiguous = 202, linked = 100
+
+Answer: D
+For contiguous allocation, each block needs to be shifted by one (i.e., we move block #100 to #101, then move #99 to #100, and so on, until we can write new block #1). Moving a block requires two I/O operations. Thus in total, 201 I/O operations are needed. For linked allocation, we just write a new block somewhere, and this new block will contain a pointer to the next block (former block #1).
+
+
+Q4. Consider removing block #51 from a file currently consisting of 100 blocks (numbered from #1 to #100). Assume that the file-control block and the index block (in case of indexing allocation) are already in memory. Calculate how many disk I/O operations are required for linked and single-level indexed allocation strategies. Assume that reading or writing a block takes one I/O operation. Don't include writing the file-control block or index block
+
+A. linked = 1, index = 0
+B. linked = 1, index = 1
+C. linked = 52, index = 0
+D. linked = 52, index = 1
+E. linked = 104, index = 52
+
+Answer: C
+For linked allocation scheme, to identify block #51, one needs to read #1, #2, ... , #50, because block #1 will contain the pointer to block #2, etc. We then need to read #51 to get the pointer to block #52. We then need to update block #50 so that it points to #52 rather than #51. So in total, 52 I/O operations. For indexed allocation, we just need to update the index block, so 0 (because the task says "don't include writing ... index block")
+
+
+Q5. Consider a system that supports the strategies of contiguous, linked, and indexed allocation. For a given file, the system captures file size and typical access pattern. Which allocation method is preferred in each of these cases?
+
+A. Contiguous, if the file is small, doesn't change often and can be accessed randomly
+B. Contiguous, if the file changes often, and is usually accessed randomly
+C. Linked, if the file changes often, and is usually accessed randomly
+D. Linked, if the file doesn't change often, and is usually accessed randomly
+E. Indexed, if the file is small, doesn't change often and can be accessed randomly
+
+Answer: A
+Contiguous is not good when file size changes. Contiguous is OK for both sequential and random access. Linked is bad for random access as it would require traversing the list each time until the required block is found. Indexed is suitable for random access, but imposes an overhead compared to contiguous allocation. That's why A is preferable to E
+
+
+Q6. Which of the following statement about file systems is INCORRECT?
+
+A. There can be parts of secondary storage (HDD or SSD) not covered by any file system
+B. Mounting point is a dedicated file system that allows using the entirety of secondary storage (HDD or SSD)
+C. The same file system type can be used in different OS
+D. Disk fragmentation is not a concern for some file systems
+E. There are special-purpose file systems like the procfs, which is a file system that presents information on all processes as a file system
+
+Answer: B
+Mounting point is not a file system. In option C, an example is FAT32 that is supported on Windows and macOS. In option D, disk fragmentation is not a concern for file systems such as temp that reside in main memory.
